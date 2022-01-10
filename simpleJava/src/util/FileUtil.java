@@ -20,7 +20,7 @@ import java.util.List;
  * @author fdrama
  * @date 2021/10/22
  **/
-public class FileUtil {
+public final class FileUtil {
 
     private FileUtil() {
 

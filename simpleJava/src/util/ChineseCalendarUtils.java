@@ -19,7 +19,7 @@ import java.util.Set;
  * @author fdrama
  * @date 2022/01/06
  **/
-public class ChineseCalendarUtils {
+public final class ChineseCalendarUtils {
 
     private final static String SIMPLE_DATE_FORMAT_PATTERN = "yyyy-MM-dd";
 

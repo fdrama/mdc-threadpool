@@ -12,7 +12,7 @@ import java.util.zip.ZipInputStream;
  * @author fdrama
  * @date 2021/10/22
  **/
-public class UnzipUtil {
+public final class UnzipUtil {
 
     /**
      * Size of the buffer to read/write data

@@ -8,7 +8,7 @@ import java.util.Objects;
  * @author fdrama
  * @date 2022/01/06
  **/
-public class IDCardUtil {
+public final class IDCardUtil {
 
     private IDCardUtil() {
 
