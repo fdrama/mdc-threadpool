@@ -50,7 +50,7 @@
 # 查看系统内核
 uname -r
 
-# 移除安装的docker
+1. 移除安装的docker
 sudo yum remove docker \
 docker-client \
 docker-client-latest \
@@ -60,24 +60,24 @@ docker-latest-logrotate \
 docker-logrotate \
 docker-engine
 
-# 2.安装需要的工具包              
+2. 安装需要的工具包              
 sudo yum install -y yum-utils
 
-# 3.设置镜像地址
+3. 设置镜像地址
 yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
-# 4.安装docker  ce 社区版
+4. 安装docker  ce 社区版
 sudo yum install docker-ce docker-ce-cli containerd.io
-# 5.启动
+5. 启动
 sudo systemctl start docker
-# 6.查看是否安装成功
+6. 查看是否安装成功
 docker version 
 
-# 7.hello-world
+7. hello-world
 sudo docker run hello-world
-# 8.查看容器
+8. 查看容器
 docker ps  
 
-# 9.remove 
+9. remove 
 sudo yum remove docker-ce docker-ce-cli containerd.io
 
 sudo rm -rf /var/lib/docker
@@ -125,7 +125,9 @@ docker $cmd --help
 ### Docker镜像命令
 
 ```
-docker images	# 查看所有镜像
+- 查看所有镜像
+
+docker images	
 
 仓库源			镜像标签	镜像id		 镜像创建时间		镜像大小
 REPOSITORY    TAG       IMAGE ID       CREATED        SIZE
@@ -160,7 +162,7 @@ Digest: sha256:e9027fe4d91c0153429607251656806cc784e914937271037f7738bd5b8e7709	
 Status: Downloaded newer image for mysql:latest
 docker.io/library/mysql:latest	# 真实地址
 
-# 等价
+- 相同操作
 docker pull mysql
 docker pull docker.io/library/mysql:latest
 
@@ -193,7 +195,7 @@ docker rmi -f $(docker images -aq)  #删除全部镜像
 ###  Docker容器命令
 
 ```
-# 新建容器并启动
+- 新建容器并启动
 docker run  [可选参数] image
 # 参数名称
 -- name=Name  容器名称
@@ -205,19 +207,22 @@ docker run  [可选参数] image
 	-p 容器端口
 
 
-# 查看容器
+- 查看容器
 docker ps 命令
 	# 列出正在运行的容器
 -a 	# 显示所有运行的容器+历史运行的容器
 -n=? # 显示最近运行的容器
 -q 	#只显示容器的编号
 
-[admin@iZ2ze5vrnucj8nymuzcy95Z root]$ docker ps -a
-CONTAINER ID   IMAGE          COMMAND       CREATED          STATUS                     PORTS     NAMES
-8c402b23474f   centos         "/bin/bash"   15 seconds ago   Exited (0) 7 seconds ago             optimistic_williams
+
+> [admin@iZ2ze5vrnucj8nymuzcy95Z root]$ docker ps -a
+>
+> CONTAINER ID   IMAGE          COMMAND       CREATED          STATUS                     PORTS     NAMES
+>
+> 8c402b23474f   centos         "/bin/bash"   15 seconds ago   Exited (0) 7 seconds ago            optimistic_williams
 
 
-# 退出容器
+- 退出容器
 exit  # 容器停止并退出
 Ctrl + P + Q  # 容器不停止退出
 # 删除容器
@@ -225,49 +230,50 @@ docker rm 容器id 	# 删除指定容器
 docker rm -f $(docker ps -aq) # 删除所有容器
 docker ps -a -q|xargs docker rm # 删除所有容器
 
-# 启动容器
+- 启动容器
 docker start 容器id
-# 重启容器
+- 重启容器
 docker restart 容器id
-# 停止当前正在运行的容器
+- 停止当前正在运行的容器
 docker stop 容器id
-# 强制结束当前运行的容器
+- 强制结束当前运行的容器
 docker kill 容器id
 
-# 后台启动容器
+- 后台启动容器
 
 docker run -d 镜像名
 
-常见问题: docker ps  发现该镜像停止了
+- 常见问题
+docker ps  发现该镜像停止了
 # docker 容器使用后台运行，就必须要有一个前台进程, docker发现没有应用，就会自动停止
 # nginx ,容器启动后，发现自己没有提供服务，就会立即停止，释放占用资源
 
 
-# 查看容器日志
+- 查看容器日志
 docker logs -t -f --tail 10 容器id
 
 docker run -d centos /bin/sh -c "while true;do echo hello; sleep 1; done"
 
-# 查看容器
+- 查看容器
 
 docker inspect 容器id
 
-# 进入容器
+- 进入容器
 docker exec -it 容器id /bin/bash
 
 docker attach 容器id
 
-# 查看容器状态
+- 查看容器状态
 
 docker stats
 
-# 拷贝容器内文件
+- 拷贝容器内文件
 docker cp [OPTIONS] CONTAINER:SRC_PATH DEST_PATH
 
-# 查看进程信息
+- 查看进程信息
 docker top
 
-# 部署Es + kibana
+- 部署Es + kibana
 
 # 指定内存大小
 
@@ -361,10 +367,6 @@ rw  readwrite
 docker run -d -p --name nginx02 -v nginx-data:/etc/nginx/:ro nginx
 
 
-
-
-
-
 ```
 
 
@@ -373,15 +375,16 @@ docker run -d -p --name nginx02 -v nginx-data:/etc/nginx/:ro nginx
 
 DockerFile 就是用来构建docker 镜像的构建文件！ 命令脚本！
 
+
+> FROM centos
+>
+> VOLUME ["/volume01","/volume02"]
+>
+> CMD echo "---end---"
+> 
+> CMD /bin/bash
+
 ```
-FROM centos
-
-VOLUME ["/volume01","/volume02"]
-
-CMD echo "---end---"
-CMD /bin/bash
-
-
 docker build -f dockerfiletest -t fdrama/centos:1.0 .
 
 docker inspect 容器id 查看挂载目录 monts
@@ -392,7 +395,7 @@ docker inspect 容器id 查看挂载目录 monts
 ## 数据卷容器
 
 ```
-# 容器间共享  挂载目录都是指向了宿主机的挂载目录
+容器间共享  挂载目录都是指向了宿主机的挂载目录
 
 docker run -it -d --name docker03 --volumes-from 容器id 镜像id
 
