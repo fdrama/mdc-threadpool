@@ -13,7 +13,7 @@ MDC上下文传递是指在多个线程之间传递MDC内容，以便在整个�
 ## 提供自定义线程池
 
 ```java
-    ThreadPoolExecutor executor = new MdcThreadPoolExecutor(1, 1, 0L, TimeUnit.MILLISECONDS,new LinkedBlockingQueue<>());
+    ThreadPoolExecutor executor = new MdcThreadPoolExecutor(1, 1, 0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>());
     executor.execute(() -> {
         logger.info("async task executed!");
     });
