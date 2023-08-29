@@ -22,7 +22,7 @@ public class ThreadPoolExecutorTest {
 
     @Test
     public void testThreadPoolExecutor() {
-        MDC.put("requestId", UUID.randomUUID().toString());
+        MDC.put("traceId", UUID.randomUUID().toString());
         Executor executor = Executors.newSingleThreadExecutor();
         executor.execute(() -> {
             logger.info("async task executed!");
@@ -32,7 +32,7 @@ public class ThreadPoolExecutorTest {
 
     @Test
     public void testMdcUtils() {
-        MDC.put("requestId", UUID.randomUUID().toString());
+        MDC.put("traceId", UUID.randomUUID().toString());
         Executor executor = Executors.newSingleThreadExecutor();
         executor.execute(MdcUtils.wrap(() -> {
             logger.info("async task executed!");
@@ -43,7 +43,7 @@ public class ThreadPoolExecutorTest {
 
     @Test
     public void testMdcThreadPoolExecutor() {
-        MDC.put("requestId", UUID.randomUUID().toString());
+        MDC.put("traceId", UUID.randomUUID().toString());
         ThreadPoolExecutor executor = new MdcThreadPoolExecutor(1, 1, 0L, TimeUnit.MILLISECONDS,
                 new LinkedBlockingQueue<>());
         executor.execute(() -> {
@@ -54,7 +54,7 @@ public class ThreadPoolExecutorTest {
 
     @Test
     public void testMdcScheduledThreadPoolExecutor() throws InterruptedException {
-        MDC.put("requestId", UUID.randomUUID().toString());
+        MDC.put("traceId", UUID.randomUUID().toString());
         ScheduledThreadPoolExecutor executor = new MdcScheduledThreadPoolExecutor(1);
         executor.scheduleAtFixedRate(() -> {
             logger.info("scheduled task executed!");
